@@ -1,0 +1,637 @@
+Được. Ý bạn là **không chỉ biến thành một “prompt để AI viết code” nữa**, mà muốn mình **đóng gói NIGOTO HUB thành một dự án phần mềm thực sự**, có tên đề tài, mô tả, mục tiêu, phạm vi, chức năng, kiến trúc và roadmap để có thể dùng làm **đồ án/portfolio** đúng không?
+
+Mình đề xuất biến nó thành dự án như sau:
+
+# 🎌 NIGOTO HUB
+
+## Hệ thống quản lý và điều hành hoạt động Câu lạc bộ Nhật ngữ Nigoto
+
+### 1. Giới thiệu dự án
+
+**Nigoto Hub** là một hệ thống quản lý tập trung dành cho các câu lạc bộ sinh viên, được phát triển dựa trên nhu cầu thực tế của Câu lạc bộ Nhật ngữ Nigoto.
+
+Hệ thống giúp số hóa và tập trung hóa các hoạt động quản lý vốn thường bị phân tán trên nhiều nền tảng như ứng dụng nhắn tin, bảng tính và công cụ quản lý công việc.
+
+Nigoto Hub cung cấp một không gian làm việc tập trung, nơi thành viên và ban quản lý có thể theo dõi:
+
+* Hoạt động của câu lạc bộ
+* Sự kiện sắp diễn ra
+* Công việc được phân công
+* Deadline
+* Tiến độ thực hiện
+* Hoạt động truyền thông
+* Nội dung chờ duyệt
+* Điểm danh thành viên
+* Thống kê hoạt động
+
+**Mục tiêu của hệ thống là biến việc quản lý câu lạc bộ từ phân tán thành một quy trình tập trung, trực quan và có khả năng theo dõi.**
+
+---
+
+# 🎯 2. Bài toán thực tế
+
+Một câu lạc bộ sinh viên thường gặp vấn đề:
+
+```text
+Messenger/Discord → Giao việc
+Google Sheets     → Quản lý thành viên
+Google Calendar   → Quản lý lịch
+Drive             → Lưu tài liệu
+Facebook          → Đăng nội dung
+```
+
+Vấn đề là:
+
+❌ Thông tin phân tán
+❌ Dễ quên deadline
+❌ Khó theo dõi ai đang làm việc gì
+❌ Khó theo dõi tiến độ
+❌ Trưởng ban phải hỏi từng người
+❌ Khó thống kê mức độ tham gia
+❌ Khó quản lý quy trình duyệt nội dung
+❌ Dễ mất thông tin trong nhóm chat
+
+Nigoto Hub sẽ giải quyết theo mô hình:
+
+```text
+                 NIGOTO HUB
+                      │
+      ┌───────────────┼────────────────┐
+      │               │                │
+   MEMBERS          EVENTS           TASKS
+      │               │                │
+      └─────────── DASHBOARD ─────────┘
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+     MEDIA CENTER            ATTENDANCE
+          │                       │
+          └───────────┬───────────┘
+                      │
+                 ANALYTICS
+```
+
+---
+
+# 👥 3. Đối tượng sử dụng
+
+## 👑 Ban Chủ nhiệm
+
+Quản lý tổng thể câu lạc bộ:
+
+* Thành viên
+* Các ban
+* Sự kiện
+* Công việc
+* Thống kê
+* Hoạt động chung
+
+---
+
+## 👨‍💼 Trưởng ban
+
+Ví dụ:
+
+* Trưởng Ban Truyền thông
+* Trưởng Ban Học thuật
+* Trưởng Ban Sự kiện
+
+Có thể:
+
+* Quản lý thành viên trong ban
+* Phân công công việc
+* Theo dõi tiến độ
+* Theo dõi deadline
+* Đánh giá hoạt động
+
+---
+
+## 👨‍💻 Thành viên
+
+Có thể:
+
+* Xem công việc được giao
+* Cập nhật tiến độ
+* Xem lịch
+* Check-in sự kiện
+* Nhận thông báo
+
+---
+
+# 🧩 4. Các module chính
+
+## Module 1 — Authentication & Authorization 🔐
+
+Chức năng:
+
+* Đăng nhập
+* Đăng xuất
+* Quên mật khẩu
+* Đổi mật khẩu
+* JWT Authentication
+* Role-Based Access Control
+
+Roles:
+
+```text
+SUPER ADMIN
+PRESIDENT
+DEPARTMENT HEAD
+VICE HEAD
+MEMBER
+```
+
+---
+
+# Module 2 — Member Management 👥
+
+Quản lý toàn bộ thành viên.
+
+### Thông tin:
+
+```text
+Họ tên
+MSSV
+Email
+Số điện thoại
+Ban
+Chức vụ
+Ngày tham gia
+Trạng thái
+Avatar
+```
+
+### Thống kê cá nhân:
+
+```text
+Tasks Completed: 24
+Tasks In Progress: 3
+Events Attended: 12
+Attendance Rate: 90%
+```
+
+---
+
+# Module 3 — Department Management 🏢
+
+Quản lý các ban:
+
+```text
+NIGOTO
+│
+├── Ban Truyền thông
+├── Ban Học thuật
+└── Ban Sự kiện
+```
+
+Mỗi ban có:
+
+* Trưởng ban
+* Phó ban
+* Danh sách thành viên
+* Danh sách công việc
+* Thống kê hoạt động
+
+---
+
+# Module 4 — Event Management 🎉
+
+Quản lý sự kiện từ lúc lên kế hoạch đến khi hoàn thành.
+
+Ví dụ:
+
+```text
+NIGOTO HALLOWEEN 2026
+
+📅 31/10/2026
+📍 TDTU
+👥 150 Participants
+
+STATUS: UPCOMING
+```
+
+Bao gồm:
+
+* Tạo Event
+* Chỉnh sửa Event
+* Quản lý các ban tham gia
+* Theo dõi số người tham gia
+* Dashboard riêng
+* Attendance
+* Task liên quan
+
+---
+
+# Module 5 — Task Management ✅
+
+Đây là **trái tim của Nigoto Hub**.
+
+Mỗi Task:
+
+```text
+Thiết kế Poster Halloween
+
+Assignee:
+Nguyễn A
+
+Priority:
+HIGH
+
+Deadline:
+25/10/2026
+
+Status:
+IN PROGRESS
+```
+
+Workflow:
+
+```text
+TODO
+ ↓
+IN PROGRESS
+ ↓
+REVIEW
+ ↓
+COMPLETED
+```
+
+Có:
+
+* Assign task
+* Multiple assignees
+* Deadline
+* Priority
+* Comment
+* Activity history
+* Overdue detection
+
+---
+
+# Module 6 — Kanban Board 📌
+
+Quản lý trực quan:
+
+```text
+┌────────┬─────────────┬────────┬───────────┐
+│ TODO   │ IN PROGRESS │ REVIEW │ COMPLETED │
+├────────┼─────────────┼────────┼───────────┤
+│ Task A │ Task C      │ Task D │ Task F    │
+│ Task B │ Task E      │        │ Task G    │
+└────────┴─────────────┴────────┴───────────┘
+```
+
+Người dùng kéo-thả Task.
+
+---
+
+# Module 7 — Media Center 🎨
+
+Đây sẽ là **điểm đặc biệt nhất của Nigoto Hub**.
+
+Dành cho Ban Truyền thông quản lý:
+
+* Ý tưởng nội dung
+* Caption
+* Poster
+* Video
+* Người viết
+* Designer
+* Reviewer
+* Ngày đăng
+* Trạng thái
+
+Workflow:
+
+```text
+IDEA
+ ↓
+WRITING
+ ↓
+DESIGN
+ ↓
+REVIEW
+ ↓
+APPROVED
+ ↓
+SCHEDULED
+ ↓
+PUBLISHED
+```
+
+---
+
+# Module 8 — Content Calendar 📅
+
+Hiển thị lịch đăng bài.
+
+```text
+OCTOBER 2026
+
+20 ─ Poster Halloween
+22 ─ Recruitment Post
+25 ─ Japanese Vocabulary
+27 ─ Event Reminder
+31 ─ Halloween Recap
+```
+
+Có thể lọc theo:
+
+* Facebook
+* Instagram
+* TikTok
+* Loại nội dung
+* Ban
+* Status
+
+---
+
+# Module 9 — Content Approval 🔎
+
+Một thành viên hoàn thành nội dung:
+
+```text
+DRAFT
+ ↓
+SUBMITTED
+ ↓
+IN REVIEW
+```
+
+Reviewer có thể:
+
+```text
+✓ APPROVE
+
+✎ REQUEST CHANGES
+
+✕ REJECT
+```
+
+Hệ thống lưu lịch sử.
+
+---
+
+# Module 10 — Attendance 🎫
+
+Check-in bằng:
+
+* QR Code
+* Admin check-in
+
+Quy trình:
+
+```text
+MEMBER
+   ↓
+SCAN QR
+   ↓
+NIGOTO HUB
+   ↓
+VALIDATE
+   ↓
+CHECK-IN SUCCESS
+```
+
+Có thể xem:
+
+* Ai tham gia
+* Check-in lúc nào
+* Attendance Rate
+* Danh sách vắng mặt
+
+---
+
+# Module 11 — Notification 🔔
+
+Thông báo:
+
+> 🔔 Bạn được giao Task mới.
+
+> ⏰ Task "Thiết kế Poster" sẽ đến hạn sau 1 ngày.
+
+> ⚠️ Task của bạn đã quá hạn.
+
+> ✅ Nội dung đã được duyệt.
+
+---
+
+# Module 12 — Dashboard 📊
+
+## Dashboard cá nhân
+
+```text
+GOOD AFTERNOON, HẢI NGỌC 👋
+
+YOUR TASKS
+────────────
+
+🔥 1 Urgent
+⚡ 3 In Progress
+📝 4 To Do
+
+UPCOMING EVENT
+
+🎃 NIGOTO HALLOWEEN
+31/10/2026
+```
+
+## Dashboard Admin
+
+```text
+TOTAL MEMBERS      250
+ACTIVE MEMBERS     218
+UPCOMING EVENTS    04
+TASKS OVERDUE      05
+```
+
+---
+
+# 🏗️ 5. Kiến trúc dự án
+
+Mình khuyên bạn làm theo **Modular Monolith** trước.
+
+Đây là điểm rất quan trọng.
+
+❌ Không cần Microservices ngay.
+
+Với quy mô Nigoto Hub, Microservices sẽ khiến project phức tạp không cần thiết.
+
+Kiến trúc:
+
+```text
+                   FRONTEND
+              React + TypeScript
+                       │
+                       │ HTTPS / REST API
+                       ▼
+                API GATEWAY / BACKEND
+                       │
+          ┌────────────┼─────────────┐
+          │            │             │
+        Auth         Members       Events
+          │            │             │
+        Tasks      Media Center  Attendance
+          │            │             │
+       Notification   Analytics  Dashboard
+          │            │             │
+          └────────────┼─────────────┘
+                       │
+                PostgreSQL Database
+```
+
+---
+
+# 💻 6. Công nghệ đề xuất
+
+### Frontend
+
+```text
+React
+TypeScript
+Vite
+Tailwind CSS
+React Router
+TanStack Query
+```
+
+### Backend
+
+```text
+Python
+FastAPI
+SQLAlchemy
+Pydantic
+Alembic
+JWT
+```
+
+### Database
+
+```text
+PostgreSQL
+```
+
+### DevOps sau này
+
+```text
+Docker
+Docker Compose
+Nginx
+GitHub Actions
+```
+
+---
+
+# 🗂️ 7. Cấu trúc project
+
+```text
+nigoto-hub/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   ├── members/
+│   │   │   ├── events/
+│   │   │   ├── tasks/
+│   │   │   ├── media/
+│   │   │   └── attendance/
+│   │   │
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   ├── types/
+│   │   └── utils/
+│
+├── backend/
+│   └── app/
+│       ├── api/
+│       ├── core/
+│       ├── database/
+│       ├── models/
+│       ├── schemas/
+│       ├── repositories/
+│       ├── services/
+│       │
+│       └── modules/
+│           ├── auth/
+│           ├── members/
+│           ├── departments/
+│           ├── events/
+│           ├── tasks/
+│           ├── media/
+│           ├── attendance/
+│           └── notifications/
+│
+├── docs/
+│   ├── requirements/
+│   ├── architecture/
+│   ├── api/
+│   └── diagrams/
+│
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+# 🚀 8. MVP — Phiên bản đầu tiên
+
+**Đừng làm 12 module cùng lúc.**
+
+Phiên bản 1 nên là:
+
+### 🔐 Auth
+
+* Login
+* Role
+
+### 👥 Members
+
+* Danh sách thành viên
+* Profile
+* Ban
+
+### 🎉 Events
+
+* Event CRUD
+
+### ✅ Tasks
+
+* Create
+* Assign
+* Status
+* Deadline
+
+### 📌 Kanban
+
+### 📊 Dashboard cơ bản
+
+Đây đã là một sản phẩm có thể sử dụng.
+
+---
+
+# 🔥 Version 2
+
+Thêm:
+
+* Media Center
+* Content Calendar
+* Content Approval
+* Notifications
+
+---
+
+# ⚡ Version 3
+
+Thêm:
+
+* QR Attendance
+* Analytics
+* Activity Logs
+* Email Notification
+
+---
